@@ -28,7 +28,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleKeydown));
       >
         <button
           type="button"
-          class="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full text-text-secondary transition hover:bg-surface-raised hover:text-text-primary"
+          class="absolute right-3 top-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-text-secondary transition hover:bg-surface-raised hover:text-text-primary"
           aria-label="Закрыть"
           @click="$emit('close')"
         >
@@ -51,13 +51,13 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleKeydown));
 
         <button
           type="button"
-          class="mt-6 min-h-11 w-full rounded-pill bg-accent px-4 py-3 text-sm font-semibold text-white transition hover:brightness-110 active:brightness-95"
+          class="mt-6 min-h-11 w-full cursor-pointer rounded-pill bg-accent px-4 py-3 text-sm font-semibold text-white transition hover:brightness-110 active:brightness-95"
         >
           Разблокировать доступ
         </button>
         <button
           type="button"
-          class="mt-2 min-h-11 w-full rounded-pill px-4 py-3 text-sm font-medium text-text-secondary transition hover:bg-surface-raised hover:text-text-primary"
+          class="mt-2 min-h-11 w-full cursor-pointer rounded-pill px-4 py-3 text-sm font-medium text-text-secondary transition hover:bg-surface-raised hover:text-text-primary"
           @click="$emit('close')"
         >
           Не сейчас

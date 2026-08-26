@@ -55,7 +55,7 @@ function closePaywall() {
       <header class="mb-4 flex items-center justify-between sm:mb-6">
         <button
           type="button"
-          class="flex h-11 w-11 items-center justify-center rounded-pill bg-surface transition hover:bg-surface-raised"
+          class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-pill bg-surface transition hover:bg-surface-raised"
           aria-label="Назад"
         >
           <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">

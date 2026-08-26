@@ -52,7 +52,7 @@ function statusClasses(status: QuestionState['status']) {
       >
         <button
           type="button"
-          class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-sm font-semibold transition"
+          class="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl text-sm font-semibold transition"
           :class="[
             statusClasses(questionStates[index].status),
             index === currentIndex && 'outline outline-2 outline-offset-1 outline-text-primary/70',

@@ -19,7 +19,7 @@ defineEmits<{ click: [] }>();
     class="flex min-h-11 w-full items-center gap-3 rounded-card px-4 py-3.5 text-left text-sm leading-relaxed transition sm:text-base"
     :class="[
       variant === 'default' &&
-        'bg-surface text-text-primary hover:bg-surface-raised active:bg-surface-raised',
+        'cursor-pointer bg-surface text-text-primary hover:bg-surface-raised active:bg-surface-raised',
       variant === 'correct' && 'bg-correct/15 text-text-primary ring-1 ring-correct',
       variant === 'incorrect' && 'bg-incorrect/15 text-text-primary ring-1 ring-incorrect',
       variant === 'correct-muted' && 'bg-transparent text-text-primary ring-1 ring-correct/60',

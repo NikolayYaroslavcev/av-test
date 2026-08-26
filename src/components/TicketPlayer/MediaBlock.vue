@@ -29,7 +29,7 @@ const src = computed(() => (errored.value ? placeholder : props.image));
     </div>
     <button
       type="button"
-      class="mt-3 flex min-h-11 w-full items-center justify-center gap-2 rounded-pill bg-surface px-4 py-3 text-sm font-medium text-text-primary transition hover:bg-surface-raised"
+      class="mt-3 flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-pill bg-surface px-4 py-3 text-sm font-medium text-text-primary transition hover:bg-surface-raised"
       @click="$emit('open-paywall')"
     >
       <svg viewBox="0 0 24 24" class="h-4 w-4 text-accent" fill="none" stroke="currentColor" stroke-width="2">
