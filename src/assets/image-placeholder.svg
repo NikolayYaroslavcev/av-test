@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Изображение недоступно">
+  <rect width="640" height="360" fill="#1c1c1f" />
+  <g stroke="#4a4a52" stroke-width="2" fill="none">
+    <rect x="40" y="40" width="560" height="280" rx="16" />
+  </g>
+  <g fill="#4a4a52">
+    <circle cx="220" cy="150" r="26" />
+    <path d="M60 300 L220 190 L320 250 L420 170 L580 300 Z" />
+  </g>
+  <text x="320" y="332" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#9a9aa2">
+    Изображение недоступно
+  </text>
+</svg>
