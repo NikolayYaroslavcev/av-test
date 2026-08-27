@@ -5,6 +5,7 @@
 - TypeScript
 - Vite
 - Tailwind CSS v4
+- Pinia
 
 ## Описание
 
