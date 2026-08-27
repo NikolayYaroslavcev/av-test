@@ -7,5 +7,5 @@ const questions = ticketData as Ticket;
 </script>
 
 <template>
-  <TicketPlayer :questions="questions" />
+  <TicketPlayer ticket-id="ticket-1" :questions="questions" />
 </template>

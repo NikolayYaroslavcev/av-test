@@ -26,9 +26,7 @@ export interface QuestionState {
   isFavorite: boolean;
 }
 
-export interface PlayerState {
-  questions: Question[];
+export interface TicketProgress {
   currentIndex: number;
   questionStates: QuestionState[];
-  isPaywallOpen: boolean;
 }

@@ -1,41 +1,36 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
-import type { Question, QuestionState } from '../../types/ticket';
+import { computed, ref } from 'vue';
+import { useTicketStore } from '../../stores/ticketStore';
+import type { Question } from '../../types/ticket';
 import FavoriteButton from './FavoriteButton.vue';
 import MediaBlock from './MediaBlock.vue';
 import PaywallModal from './PaywallModal.vue';
 import QuestionContent from './QuestionContent.vue';
 import QuestionNav from './QuestionNav.vue';
 
-const props = defineProps<{ questions: Question[] }>();
+const props = defineProps<{ ticketId: string; questions: Question[] }>();
 
-const currentIndex = ref(0);
-const questionStates = reactive<QuestionState[]>(
-  props.questions.map(() => ({
-    status: 'unanswered',
-    selectedAnswerIndex: null,
-    isFavorite: false,
-  })),
-);
+const store = useTicketStore();
+store.initTicket(props.ticketId, props.questions);
+
 const isPaywallOpen = ref(false);
 
+const currentIndex = computed(() => store.progress[props.ticketId].currentIndex);
+const questionStates = computed(() => store.progress[props.ticketId].questionStates);
 const currentQuestion = computed(() => props.questions[currentIndex.value]);
-const currentState = computed(() => questionStates[currentIndex.value]);
+const currentState = computed(() => questionStates.value[currentIndex.value]);
 
 function goToQuestion(index: number) {
-  currentIndex.value = index;
+  store.goToQuestion(props.ticketId, index);
 }
 
 function selectAnswer(answerIndex: number) {
-  const state = questionStates[currentIndex.value];
-  if (state.status !== 'unanswered') return;
   const answer = currentQuestion.value.answers[answerIndex];
-  state.selectedAnswerIndex = answerIndex;
-  state.status = answer.is_correct ? 'correct' : 'incorrect';
+  store.selectAnswer(props.ticketId, answerIndex, answer.is_correct);
 }
 
 function toggleFavorite() {
-  questionStates[currentIndex.value].isFavorite = !questionStates[currentIndex.value].isFavorite;
+  store.toggleFavorite(props.ticketId);
 }
 
 function openPaywall() {
