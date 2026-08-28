@@ -20,7 +20,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleKeydown));
       @click.self="$emit('close')"
     >
       <div
-        class="relative w-full max-w-sm rounded-card bg-surface p-6 text-center shadow-2xl ring-1 ring-white/10 sm:p-7"
+        class="relative w-full max-w-sm rounded-card border border-border bg-surface p-6 text-center shadow-2xl sm:p-7"
         role="dialog"
         aria-modal="true"
         aria-labelledby="paywall-title"
@@ -28,14 +28,16 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleKeydown));
       >
         <button
           type="button"
-          class="absolute right-3 top-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-text-secondary transition hover:bg-surface-raised hover:text-text-primary"
+          class="absolute right-3 top-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-text-secondary outline-none transition duration-200 ease-out hover:bg-surface-raised hover:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary"
           aria-label="Закрыть"
           @click="$emit('close')"
         >
-          &#10005;
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+          </svg>
         </button>
 
-        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent/15 text-accent">
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-text-on-accent">
           <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="5" y="11" width="14" height="9" rx="2" />
             <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke-linecap="round" />
@@ -51,13 +53,13 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleKeydown));
 
         <button
           type="button"
-          class="mt-6 min-h-11 w-full cursor-pointer rounded-pill bg-accent px-4 py-3 text-sm font-semibold text-white transition hover:brightness-110 active:brightness-95"
+          class="mt-6 min-h-11 w-full cursor-pointer rounded-pill bg-accent px-4 py-3 text-sm font-semibold text-text-on-accent outline-none transition duration-200 ease-out hover:brightness-95 active:brightness-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary"
         >
           Разблокировать доступ
         </button>
         <button
           type="button"
-          class="mt-2 min-h-11 w-full cursor-pointer rounded-pill px-4 py-3 text-sm font-medium text-text-secondary transition hover:bg-surface-raised hover:text-text-primary"
+          class="mt-2 min-h-11 w-full cursor-pointer rounded-pill px-4 py-3 text-sm font-medium text-text-secondary outline-none transition duration-200 ease-out hover:bg-surface-raised hover:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary"
           @click="$emit('close')"
         >
           Не сейчас

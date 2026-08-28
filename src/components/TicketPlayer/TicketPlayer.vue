@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import { useTicketStore } from '../../stores/ticketStore';
 import type { Question } from '../../types/ticket';
+import logo from '../../assets/logo.png';
 import FavoriteButton from './FavoriteButton.vue';
 import MediaBlock from './MediaBlock.vue';
 import PaywallModal from './PaywallModal.vue';
@@ -50,7 +51,7 @@ function closePaywall() {
       <header class="mb-4 flex items-center justify-between sm:mb-6">
         <button
           type="button"
-          class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-pill bg-surface transition hover:bg-surface-raised"
+          class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-pill bg-accent text-text-on-accent outline-none transition duration-200 ease-out hover:brightness-95 active:brightness-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary"
           aria-label="Назад"
         >
           <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
@@ -58,7 +59,11 @@ function closePaywall() {
           </svg>
         </button>
         <h1 class="text-base font-semibold sm:text-lg">{{ currentQuestion.ticket_number }}</h1>
-        <div class="h-11 w-11" aria-hidden="true" />
+        <img
+          :src="logo"
+          alt="Третий Рим"
+          class="h-11 w-11 shrink-0 rounded-xl object-contain sm:h-12 sm:w-12 lg:h-14 lg:w-14"
+        />
       </header>
 
       <QuestionNav
@@ -86,7 +91,7 @@ function closePaywall() {
 
           <p
             v-if="currentState.status !== 'unanswered'"
-            class="mt-4 rounded-card border-l-4 border-accent bg-surface p-4 text-sm leading-relaxed text-text-secondary"
+            class="mt-4 rounded-card border border-border bg-accent/10 p-4 text-sm leading-relaxed text-text-primary"
           >
             {{ currentQuestion.answer_tip }}
           </p>

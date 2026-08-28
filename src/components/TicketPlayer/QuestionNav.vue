@@ -31,10 +31,20 @@ function statusLabel(status: QuestionState['status']) {
   return ', не отвечен';
 }
 
-function statusClasses(status: QuestionState['status']) {
-  if (status === 'correct') return 'bg-correct/15 text-correct ring-1 ring-inset ring-correct/40';
-  if (status === 'incorrect') return 'bg-incorrect/15 text-incorrect ring-1 ring-inset ring-incorrect/40';
-  return 'bg-surface text-text-secondary hover:bg-surface-raised';
+function itemClasses(status: QuestionState['status'], isCurrent: boolean) {
+  if (status === 'correct') {
+    return isCurrent
+      ? 'border-correct bg-correct text-white shadow-[0_2px_4px_rgba(0,0,0,0.18)]'
+      : 'border-correct bg-white text-correct hover:bg-correct/5';
+  }
+  if (status === 'incorrect') {
+    return isCurrent
+      ? 'border-incorrect bg-incorrect text-white shadow-[0_2px_4px_rgba(0,0,0,0.18)]'
+      : 'border-incorrect bg-white text-incorrect hover:bg-incorrect/5';
+  }
+  return isCurrent
+    ? 'border-text-primary bg-accent text-text-on-accent shadow-[0_2px_4px_rgba(0,0,0,0.18)]'
+    : 'border-accent bg-white text-text-primary shadow-sm hover:bg-accent/10';
 }
 </script>
 
@@ -52,17 +62,34 @@ function statusClasses(status: QuestionState['status']) {
       >
         <button
           type="button"
-          class="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl text-sm font-semibold transition"
-          :class="[
-            statusClasses(questionStates[index].status),
-            index === currentIndex && 'outline outline-2 outline-offset-1 outline-text-primary/70',
-          ]"
+          class="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl border text-sm font-bold outline-none transition duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary"
+          :class="itemClasses(questionStates[index].status, index === currentIndex)"
           :aria-current="index === currentIndex ? 'true' : undefined"
           :aria-label="`Вопрос ${index + 1}${statusLabel(questionStates[index].status)}`"
           @click="emit('select', index)"
         >
-          <span v-if="questionStates[index].status === 'correct'" aria-hidden="true">&#10003;</span>
-          <span v-else-if="questionStates[index].status === 'incorrect'" aria-hidden="true">&#10005;</span>
+          <svg
+            v-if="questionStates[index].status === 'correct'"
+            viewBox="0 0 24 24"
+            class="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            aria-hidden="true"
+          >
+            <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <svg
+            v-else-if="questionStates[index].status === 'incorrect'"
+            viewBox="0 0 24 24"
+            class="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+          </svg>
           <span v-else>{{ index + 1 }}</span>
         </button>
       </li>
