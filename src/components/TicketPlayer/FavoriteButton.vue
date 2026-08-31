@@ -6,11 +6,11 @@ defineEmits<{ toggle: [] }>();
 <template>
   <button
     type="button"
-    class="flex min-h-11 cursor-pointer items-center gap-2 rounded-pill border px-3 py-2 text-sm font-medium outline-none transition-colors duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary"
+    class="flex min-h-11 cursor-pointer items-center gap-2 rounded-pill px-3 py-2 text-sm font-medium outline-none transition-colors duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary"
     :class="
       isFavorite
-        ? 'border-text-primary bg-accent text-text-on-accent hover:brightness-95'
-        : 'border-border bg-surface text-text-secondary hover:border-accent hover:bg-accent/10 hover:text-text-primary'
+        ? 'bg-accent text-text-on-accent shadow-[0_2px_4px_rgba(0,0,0,0.18)] hover:brightness-95'
+        : 'bg-surface text-text-secondary shadow-sm hover:bg-accent/10 hover:text-text-primary'
     "
     :aria-pressed="isFavorite"
     @click="$emit('toggle')"
