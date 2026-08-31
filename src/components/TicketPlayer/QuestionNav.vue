@@ -10,8 +10,14 @@ const props = defineProps<{
 
 const emit = defineEmits<{ select: [index: number] }>();
 
+const ITEM_SIZE = 44;
+const ITEM_GAP = 8;
+const ITEM_STRIDE = ITEM_SIZE + ITEM_GAP;
+const PEEK = 12;
+
 const scroller = ref<HTMLElement | null>(null);
 const trackWrap = ref<HTMLElement | null>(null);
+const trackWidth = ref<number | null>(null);
 const hasOverflow = ref(false);
 const canScrollLeft = ref(false);
 const canScrollRight = ref(false);
@@ -21,6 +27,26 @@ let resizeObserver: ResizeObserver | null = null;
 
 function setItemRef(el: Element | ComponentPublicInstance | null, index: number) {
   itemRefs[index] = el as HTMLLIElement | null;
+}
+
+function isDesktopNav() {
+  return typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches;
+}
+
+function fitTrack() {
+  const wrap = trackWrap.value;
+  if (!wrap) return;
+
+  if (isDesktopNav()) {
+    trackWidth.value = null;
+    nextTick(updateScrollHints);
+    return;
+  }
+
+  const available = wrap.clientWidth;
+  const count = Math.max(1, Math.floor((available - PEEK) / ITEM_STRIDE));
+  trackWidth.value = count * ITEM_STRIDE + PEEK;
+  nextTick(updateScrollHints);
 }
 
 function updateScrollHints() {
@@ -49,10 +75,10 @@ watch(
 );
 
 onMounted(() => {
-  nextTick(updateScrollHints);
+  nextTick(fitTrack);
   const wrap = trackWrap.value;
   if (!wrap || typeof ResizeObserver === 'undefined') return;
-  resizeObserver = new ResizeObserver(() => updateScrollHints());
+  resizeObserver = new ResizeObserver(fitTrack);
   resizeObserver.observe(wrap);
 });
 
@@ -84,11 +110,11 @@ function itemClasses(status: QuestionState['status'], isCurrent: boolean) {
 </script>
 
 <template>
-  <div class="flex items-center gap-2 lg:block">
+  <div class="flex items-center gap-1 lg:block">
     <button
       v-show="hasOverflow"
       type="button"
-      class="relative z-10 flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-white text-text-primary shadow-sm outline-none transition duration-200 ease-out hover:bg-accent/10 active:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary disabled:cursor-default disabled:opacity-30 lg:hidden"
+      class="relative z-10 flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-white text-text-primary shadow-sm outline-none transition duration-200 ease-out hover:bg-accent/10 active:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary disabled:cursor-default disabled:opacity-30 lg:hidden"
       :disabled="!canScrollLeft"
       aria-label="Предыдущие вопросы"
       @click="scrollNav(-1)"
@@ -97,11 +123,12 @@ function itemClasses(status: QuestionState['status'], isCurrent: boolean) {
         <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
     </button>
-    <div ref="trackWrap" class="relative min-w-0 flex-1 pr-8 lg:pr-0 lg:flex-none">
+    <div ref="trackWrap" class="relative min-w-0 flex-1 lg:flex-none">
       <nav
         ref="scroller"
         aria-label="Навигация по вопросам билета"
         class="snap-x snap-proximity overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] lg:w-auto lg:overflow-visible [&::-webkit-scrollbar]:hidden"
+        :style="trackWidth != null ? { width: `${trackWidth}px` } : undefined"
         @scroll.passive="updateScrollHints"
       >
         <ul class="flex w-max gap-2 py-2 lg:grid lg:w-fit lg:grid-cols-10 lg:justify-items-center lg:mx-auto lg:py-2">
@@ -150,7 +177,7 @@ function itemClasses(status: QuestionState['status'], isCurrent: boolean) {
     <button
       v-show="hasOverflow"
       type="button"
-      class="relative z-10 flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-white text-text-primary shadow-sm outline-none transition duration-200 ease-out hover:bg-accent/10 active:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary disabled:cursor-default disabled:opacity-30 lg:hidden"
+      class="relative z-10 flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-white text-text-primary shadow-sm outline-none transition duration-200 ease-out hover:bg-accent/10 active:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-primary disabled:cursor-default disabled:opacity-30 lg:hidden"
       :disabled="!canScrollRight"
       aria-label="Следующие вопросы"
       @click="scrollNav(1)"
