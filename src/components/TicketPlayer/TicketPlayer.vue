@@ -62,7 +62,7 @@ function closePaywall() {
         <img
           :src="logo"
           alt="Третий Рим"
-          class="h-11 w-11 shrink-0 rounded-xl object-contain sm:h-12 sm:w-12 lg:h-14 lg:w-14"
+          class="h-16 w-16 shrink-0 rounded-xl object-contain sm:h-20 sm:w-20 lg:h-24 lg:w-24"
         />
       </header>
 
